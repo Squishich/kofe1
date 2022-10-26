@@ -21,10 +21,12 @@ c2 = 200
 d2 = 170
 e2 = 75
 f2 = 110
-
+# программа одноразка(работает при покупке кофе только по безналу и заканчивается
+# почитай что такое циклы в python, они едентичны с Си
 nomerkofe = (1,2,3,4,5,6)
 spisokKofe = (a,b,c,d,e,f)
 centiki = (a2,b2,c2,d2,e2,f2)
+# зачем соединять списки?
 for i in zip(nomerkofe,spisokKofe,centiki):
     print (*i)
 
@@ -41,6 +43,7 @@ if (oplata == 1):
 elif(oplata == 2):
     print('внесите оплату')
     rashet = int(input())
+    #при вводе налички программа падает на 45 строке при вызове функции
     matem(rashet, centiki)
 else:
     print('неверный способ оплаты')
