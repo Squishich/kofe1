@@ -28,9 +28,13 @@ while running:
 
 # Ввод процесса (события)    
 for event in pygame.event.get():
-    check for closing window
+    #check for closing window - удОли
+    #это просто обработка кнопок, второй фор не нужен
     if event.type == pygame.QUIT:
-        running = False    # Обновление        
+        running = False    # Обновление
+    # пример дальше :
+    #  if event.type == pygame.KEYDOWN:
+    #      print(pygame.key.name(event.key))
 
 # Рендеринг    
 screen.fill(BLACK)    
