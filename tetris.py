@@ -1,7 +1,11 @@
 from tkinter import *
+from tkinter import ttk
 from copy import deepcopy
 from random import choice, randrange 
 import pygame
+score, lines = 0, 0
+scores = {0: 0, 1: 100, 2: 300, 3:700, 4:1500}
+
 def start_click():
     W=10
     H =20
@@ -28,6 +32,9 @@ def start_click():
 
     anim_count, anim_speed, anim_limit =0,60,2000
     figure = deepcopy(choice(figures))
+
+    global score, lines 
+    global scores 
 
     def check_borders():
         if figure[i].x< 0 or figure[i].x>W -1:
@@ -87,7 +94,7 @@ def start_click():
                     figure = deepcopy(figure_old)
                     break
         
-        line = H-1
+        line,lines  = H-1, 1
         for row in range(H-1,-1,-1):
             count = 0
             for i in range(W):  
@@ -96,6 +103,12 @@ def start_click():
                 field[line][i] = field[row][i]
             if count< W:
                 line -=1
+            else:
+                anim_speed+= 3
+                lines +=1
+        
+        score+=scores[lines]
+
         [pygame.draw.rect(game_sc,(27,27,27),i_rect,1)for i_rect in grid]
         
         for i in range(4):
@@ -112,7 +125,7 @@ def start_click():
         pygame.display.flip()
         clock.tick(FPS)
 
-def click_pause():
+def click_restart():
     breakpoint
 
 root = Tk()
@@ -128,11 +141,16 @@ w = w//2 # середина экрана
 h = h//2
 w = w - 672 # смещение от середины
 h = h - 380
-root.geometry('312x10+{}+{}'.format(w, h))
-
+root.geometry('312x50+{}+{}'.format(w, h))
 
 start = Button(bg = 'gray',activebackground = 'green', text="Start", width=20, height=1, command = start_click).place(x = 0, y = 0)
-pause = Button(bg = 'gray',activebackground='green' ,text="Pause", width=20, height=1,command = click_pause).place(x = 160, y = 0)
+pause = Button(bg = 'gray',activebackground='green' ,text="Restart", width=20, height=1,command = click_restart).place(x = 160, y = 0)
+label = ttk.Label(text="НАБРАННЫЕ ОЧКИ:",font=("Arial", 12))
+label.place(x =0, y= 35)
+label = ttk.Label(text=score,font=("Arial", 12))
+label.place(x=240, y=35)
+
+
 
 
 root.mainloop()
